@@ -1,0 +1,4 @@
+#+TITLE: CS229 Machine Learning
+[[http://cs229.stanford.edu][link to course website]]
+
++ [[file:ps0][problem set 0]]

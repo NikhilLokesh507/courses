@@ -1,0 +1,10 @@
+#+TITLE: courses
+codes and exercises for online courses and campus courses
+
+- coursera
+  - [[file:algorithms-princeton][Princeton, Algorithm]]
+
+- [[file:cs229][Machine Learning, CS229]]
+
+
+

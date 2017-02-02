@@ -1,0 +1,176 @@
+\documentclass[11pt]{article}
+% font setting
+% \usepackage[scaled=0.88]{beraserif}
+% \usepackage[scaled=0.85]{berasans}
+% \usepackage[scaled=0.84]{beramono}
+\renewcommand{\rmdefault}{pplx} % rm
+\linespread{1.05}        % Palatino needs more leading
+\usepackage[scaled]{helvet} % ss
+% \usepackage{courier} % tt
+\usepackage{eulervm} % a better implementation of the euler package (not in gwTeX)
+\normalfont
+\usepackage[T1]{fontenc}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+
+\newtheorem{thm}{Theorem}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{fact}[thm]{Fact}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{eg}{Example}
+\newtheorem{ex}{Exercise}
+\newtheorem{defi}{Definition}
+\newtheorem{hw}{Problem}
+\newenvironment{sol}
+{\par\vspace{3mm}\noindent{\it Solution}.}
+{\qed}
+
+\newcommand{\ov}{\overline}
+\newcommand{\cb}{{\cal B}}
+\newcommand{\cc}{{\cal C}}
+\newcommand{\cd}{{\cal D}}
+\newcommand{\ce}{{\cal E}}
+\newcommand{\cf}{{\cal F}}
+\newcommand{\ch}{{\cal H}}
+\newcommand{\cl}{{\cal L}}
+\newcommand{\cm}{{\cal M}}
+\newcommand{\cp}{{\cal P}}
+\newcommand{\cz}{{\cal Z}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\la}{\leftarrow}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\dist}{\mbox{\rm dist}}
+\newcommand{\bn}{{\mathbf N}}
+\newcommand{\bz}{{\mathbf Z}}
+\newcommand{\bbR}{{\mathbb R}}
+
+\setlength{\parindent}{0pt}
+% \setlength{\parskip}{2ex}
+\newenvironment{proofof}[1]{\bigskip\noindent{\itshape #1. }}{\hfill$\Box$\medskip}
+
+\usepackage{enumerate,fullpage,proof,color}
+
+
+
+\title{CS229 \\ Problem Set 0 \\ Linear Algebra and Multivariable Calculus}
+\author{Kangwei Ling @kevinkwl}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}[1.]
+\item Gradient and Hessians
+  \begin{sol}
+    \begin{enumerate}[(a)]
+    \item Note that $x^TAx = \Sigma_{1 \leq i, j \leq n}A_{ij}x_ix_j$, and since
+      $A$ is a symmetric matrix, $x^TAx = \Sigma_{i=1}^nA_{ii}x_i^2 +
+      \Sigma_{i=1}^{n-1}\Sigma_{j=i+1}^n2A_{ij}x_ix_j$.
+      Thus,
+      \[
+        \triangledown f(x) =
+        \begin{bmatrix}
+          \vdots \\
+          1/2(2A_{ii}x_i + \Sigma_{1 \leq j \leq n, j \neq i}2A_{ij}x_j) + b_i \\
+          \vdots
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+          \vdots \\
+          \Sigma_{1 \leq j \leq n}A_{ij}x_j + b_i\\
+          \vdots
+        \end{bmatrix}
+        = Ax + b
+      \]
+      
+    \item Use the \textbf{Chain Rule}.
+      \[
+        \triangledown f(x) =
+        \begin{bmatrix}
+          g'(h(x)) \cdot \dfrac{\partial}{\partial
+            x_1}h(x) \\
+          \vdots
+        \end{bmatrix}
+      \]
+    \item from the answer in (a), it's easy to find out that,
+      \[
+        \triangledown^2 f(x) = A
+      \]
+    \item
+      \[
+        \triangledown f(x) = g'(a^Tx)a
+      \]
+      \[
+        \triangledown^2 f(x) = g''(a^Tx)aa^T
+      \]
+    \end{enumerate}
+  \end{sol}
+  
+\item Positive definite matrices
+  \begin{enumerate}[(a)]
+  \item Firstly, $A^T = (zz^T)^T = zz^T = A$. Then for all $x \in \mathbb{R}^n$,
+    $x^TAx = x^Tzz^Tx = (z^Tx)^2 \geq 0$.
+  \item $A$ is PSD. Consider the linear system $Ax = 0$, notice that for all $x'$, s.t., $Ax' = 0$, then $zz^Tx' = 0$. Note that $z^Tx'$ is a
+    scalar, and because $z$ is non-zero, $z^Tx' = 0$.
+
+    Therefore, the null space of $A$ is $\{x \in \mathbb{R}^n\ \vert\  z^Tx = 0
+    \}$. As the null space is a hyperplane perpendicular to non-zero vector $z$,
+    the dimension of $A$ is $n-1$. Thus $rank(A)=n - (n-1) = 1$
+  \item $BAB^T \in \bbR^{m\times m}$, $(BAB^T)^T = BA^TB^T= BAB^T$. For all $x
+    \in \bbR^m, B^Tx \in \bbR^n$, and $x^TB = (B^Tx)^T$. Let $y = B^Tx, y \in
+    \bbR^n$, then for all such $x, y^TAy \geq 0$, that is, $x^TBAB^Tx \geq 0$.
+    Therefore, $BAB^T$ is PSD.
+  \end{enumerate}
+  
+\item Eigenvectors, eigenvalues, nd the spectral theorem
+  \begin{enumerate}[(a)]
+  \item Let $I^{(i)}$ be the $i^{th}$ column of $I$. Note that $T^{-1}T = I,
+    T^{-1}t^{(i)} = I^{(i)}$. That is,
+    \[
+      T^{-1}t^{(i)} =
+      \begin{bmatrix}
+        0 \\
+        \vdots \\
+        1\\
+        \vdots \\
+        0
+      \end{bmatrix}
+    \]
+    and it's also obvious that
+    \[
+      \frac{1}{\lambda_i}\Lambda =
+      \begin{bmatrix}
+        \frac{\lambda_1}{\lambda_i} & & & & \\
+        & \ddots & & & \\
+        & & 1 & & \\
+        & &   & \ddots & \\
+        & & & & \frac{\lambda_n}{\lambda_i}
+      \end{bmatrix}
+    \]
+    therefore,
+    \[
+      \frac{1}{\lambda_i}\Lambda T^{-1}t^{(i)} = T^{-1}t^{(i)}
+    \]
+    i.e. $At^{(i)} = \lambda_it^{(i)}$
+
+  \item Since $U^TU = I$, $U^{-1} = U^T$, the statement follows immediately from
+    the result of (a).
+  \item $A$ is PSD, then $A = U\Lambda U^T$ by the \textbf{spectral theorem}.For each $u^{(i)}$, we know that $Au^{(i)} = \lambda_iu^{(i)}$. And
+    \begin{equation*}
+      \label{eq:1}
+       (t^{(i)})^TAt^{(i)} \geq 0
+     \end{equation*}
+     since
+     \[
+       (t^{(i)})^TAt^{(i)} = \lambda_i(t^{(i)})^Tt^{(i)} = \lambda_i\abs{t^{(i)}}^2
+     \]
+      $\lambda_i \geq 0$
+  \end{enumerate}
+\end{enumerate}
+\end{document}
