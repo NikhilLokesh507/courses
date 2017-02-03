@@ -6,5 +6,8 @@ codes and exercises for online courses and campus courses
 
 - [[file:cs229][Machine Learning, CS229]]
 
+- [[file:cs61a][CS61A: The Structure and Interpretation of Computer Programs]]
+
+
 
 
