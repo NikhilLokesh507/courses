@@ -1,0 +1,11 @@
+output of x/24x $esp (valid stack part):
+
+0x7bdc: 0x00007db4 (return address when entry() returns, the address of the instruction after call entry())
+        0x00000000
+        0x00000000
+        0x00000000
+0x7bec: 0x00000000
+        0x00000000
+        0x00000000
+        0x00000000
+0x7bfc: 0x00007c4d (return address when bootmain returns, the address of the instruction after call bootmain)          
