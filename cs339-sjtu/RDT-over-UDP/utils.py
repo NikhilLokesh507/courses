@@ -12,3 +12,19 @@ def readFile(filename, chunk_size=256):
             if not chunk:
                 break
             yield chunk
+
+import time
+
+def timeit(f):
+
+    def timed(*args, **kw):
+
+        ts = time.time()
+        result = f(*args, **kw)
+        te = time.time()
+
+        print('took: %2.4f sec' % \
+          (te-ts))
+        return result
+
+    return timed
