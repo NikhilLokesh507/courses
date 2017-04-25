@@ -1,0 +1,53 @@
+#+TITLE: Matrix Multiplication Using OpenMP
+#+AUTHOR: 凌康伟 5140219295
+#+LATEX_COMPILER: xelatex
+#+LATEX_HEADER: \usepackage{xeCJK,fullpage}\setCJKmainfont{Hiragino Sans GB W3}\setCJKsansfont{Hiragino Sans GB W3}\setCJKmonofont{Hiragino Sans GB W3}
+#+LATEX_HEADER_EXTRA: \usepackage[sc, osf]{mathpazo}\linespread{1.05}\usepackage[scaled=0.90]{helvet}\usepackage[T1]{fontenc}\usepackage{textcomp}
+#+OPTIONS: toc:1 num:1
+
+* 程序代码设计
+** 全局变量
+   程序中有以下全局变量:
+   - =K= :: 矩阵的大小（1000）
+   - =A= :: =K=  \times =K=  浮点数矩阵
+   - =B= :: =K=  \times =K=  浮点数矩阵
+   - =C1= :: =K= \times =K=  浮点数矩阵, 是矩阵 =A=, =B= 的串行乘法结果。
+   - =C2= :: =K= \times =K=  浮点数矩阵，并行计算 =A= \times =B= 的结果。
+** 函数
+   - =init= :: 初始化矩阵(openmp),填充 [0, 1) 随机数
+   - =compareResult= :: 比较两种方法计算的结果
+   - =sequential= :: 串行计算矩阵乘积
+   - =parallel= :: 并行计算矩阵乘积
+   - =main= :: main 函数，分别调用上面的函数，利用 =omp_get_wtime()= 来计时。
+* 运行结果
+  #+ATTR_LATEX:  :center
+  [[file:result.png]]
+
+* 结果分析
+  由上面运行结果截图可以看出，在 4 个线程下，OpenMP 多线程并行计算矩阵乘积达到了
+  非常好的效果。其中：
+\begin{align*}
+Speedup &= \frac{T_{serial}}{T_{parallel}} \approx 3.65 \\
+E &= \frac{Speedup}{p} \approx 0.91
+\end{align*}
+
+** dynamic schedule
+   在 dynamic schedule 情况下，还是设定 4 个线程，改变 dynamic schedule 的 chunksize，
+   可以得到以下的结果：
+   | chunksize     | 1(default) |    4 |   64 |  256 |
+   |---------------+------------+------+------+------|
+   | serial  /sec  |       2.92 | 2.95 | 3.00 | 2.95 |
+   | parallel /sec |       0.75 | 0.77 | 0.81 | 0.80 |
+   | speedup       |       3.85 | 3.81 | 3.72 | 3.69 |
+   | efficiency    |       0.96 | 0.95 | 0.93 | 0.92 |
+   由于取样数量较少(4)，结果仍然有一定波动，但可以看出随着 chunksize 的增加，并行的性
+   能有一定下降。
+** 线程数量
+   在 static schedule 的情况下，测试线程数对并行性能影响。
+   | num_threads   |    2 |    4 |    8 |   16 |
+   |---------------+------+------+------+------|
+   | serial /sec   | 2.89 | 3.06 | 2.92 | 3.10 |
+   | parallel /sec | 1.44 | 0.80 | 0.80 | 0.81 |
+   | speedup       | 2.00 | 3.80 | 3.64 | 3.82 |
+   | efficiency    | 1.01 | 0.95 | 0.46 | 0.24 |
+   由于是在虚拟机环境下，性能有一定损失，仅仅能在两个线程的情况下达到最优的性能。

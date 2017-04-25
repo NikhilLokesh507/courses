@@ -5,3 +5,6 @@ materials
 *.aux
 *.synctex.gz
 .ok_history
+.vagrant
+Vagrantfile
+*.log
