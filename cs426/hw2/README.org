@@ -1,0 +1,25 @@
+#+TITLE: hw2: Spark
+#+AUTHOR: 凌康伟 5140219295
+#+LATEX_COMPILER: xelatex
+#+LATEX_HEADER: \usepackage{xeCJK}\setCJKmainfont{Hiragino Sans GB W3}\setCJKsansfont{Hiragino Sans GB W3}\setCJKmonofont{Hiragino Sans GB W3}\usepackage{fullpage}
+#+OPTIONS: toc:nil
+
+#+CAPTION: 启动 Spark pyshell
+#+ATTR_LATEX: :width .6\linewidth
+[[file:images/run-pyspark.png]]
+
+#+CAPTION: 计算数据平方和
+#+ATTR_LATEX: :width .6\linewidth
+[[file:images/sum.png]]
+
+#+CAPTION: 对 spark 自带的 README.md 进行单词统计
+#+ATTR_LATEX: :width .6\linewidth
+[[file:images/count.png]]
+
+#+CAPTION: MapReduce: The Map Step
+#+ATTR_LATEX: :width .6\linewidth
+[[file:images/map.eps]]
+
+#+CAPTION: MapReduce: The Reduce Step
+#+ATTR_LATEX: :width .6\linewidth
+[[file:images/reduce.eps]]
