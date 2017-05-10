@@ -1,0 +1,315 @@
+\documentclass[11pt]{article}
+\usepackage{sectsty}
+\usepackage{enumerate}
+\usepackage{bm}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{float, graphicx}
+\usepackage{environ}
+\usepackage{booktabs, xeCJK}
+
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+\usepackage[sc]{mathpazo} % math & rm
+\linespread{1.05}        % Palatino needs more leading (space between lines)
+\usepackage[scaled=0.90]{helvet} % ss
+% \usepackage[scaled=0.85]{sourcecodepro} % tt
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+
+\newtheorem{thm}{Theorem}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{fact}[thm]{Fact}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{eg}{Example}
+\newtheorem{ex}{Exercise}
+\newtheorem{defi}{Definition}
+\newtheorem{hw}{Problem}
+\newenvironment{sol}
+{\par\vspace{3mm}\noindent{\it Solution}.}
+{\qed}
+
+\newcommand{\ov}{\overline}
+\newcommand{\cb}{{\cal B}}
+\newcommand{\cc}{{\cal C}}
+\newcommand{\cd}{{\cal D}}
+\newcommand{\ce}{{\cal E}}
+\newcommand{\cf}{{\cal F}}
+\newcommand{\ch}{{\cal H}}
+\newcommand{\cl}{{\cal L}}
+\newcommand{\cm}{{\cal M}}
+\newcommand{\cp}{{\cal P}}
+\newcommand{\cz}{{\cal Z}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\la}{\leftarrow}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\dist}{\mbox{\rm dist}}
+\newcommand{\bn}{{\mathbf N}}
+
+\newcommand{\bA}{ \bm{A} }
+\newcommand{\bI}{ \bm{I} }
+\newcommand{\bM}{ \bm{M} }
+\newcommand{\bx}{ \bm{x} }
+\newcommand{\bV}{ \bm{V} }
+\newcommand{\bC}{ \bm{C} }
+\newcommand{\bc}{ \bm{c} }
+\newcommand{\bU}{ \bm{U} }
+\newcommand{\bR}{ \bm{R} }
+\newcommand{\bW}{ \bm{W} }
+\newcommand{\bX}{ \bm{X} }
+\newcommand{\bY}{ \bm{Y} }
+\newcommand{\bZ}{ \bm{Z} }
+% \setlength{\parindent}{0pt}
+% \setlength{\parskip}{2ex}
+% \newenvironment{proofof}[1]{\bigskip\noindent{\itshape #1. }}{\hfill$\Box$\medskip}
+
+\usepackage{enumerate,fullpage,proof,color,hyperref}
+
+
+\newcommand{\todo}[1] { \color{red}[TODO: #1]\color{black} }
+
+
+\newcommand{\alns}[1] {
+	\begin{align*} #1 \end{align*}
+}
+\newcommand{\pd}[2] {
+  \frac{\partial #1}{\partial #2}
+}
+
+\title{Big Data Processing: homework 3}
+\author{凌康伟 \qquad 5140219295}
+
+\begin{document}
+\maketitle
+
+\subsection*{Exercise 6.1.1}
+\begin{enumerate}[(a)]
+\item In this setting, for items numbered beyond 20, there are less than 5
+  multiples for each number, therefore they are not frequent. The frequent items
+  are: 1, 2, ..., 20;
+\end{enumerate}
+
+\subsection*{Exercise 6.1.5}
+\begin{enumerate}[(a)]
+\item The baskets that contains item 5 and 7 are 35, 70 (common multiples of 5
+  and 7), thus support($\{5, 7\}$) = 2. Since 70 is also a multiple of 2, item 2
+  is in basket 70, support($\{2, 5, 7\}$) = 1. Therefore, conf($\{5, 7\}
+  \rightarrow 2$) = $1/2$.
+\item The baskets containing item 2, 3 and 4 are 12, 24, 36, 48, 60, 72, 84, 96,
+  and among these basket, 60 contains 5. Therefore,
+  \begin{align*}
+    \text{support}(\{2, 3, 4\}) &= 8 \\
+    \text{support}(\{2, 3, 4, 5\}) &= 1 \\
+    \text{conf}(\{2, 3, 4\} \rightarrow 5) &= \frac{1}{8}
+  \end{align*}
+\end{enumerate}
+
+\subsection*{Exercise 11.1.3}
+Let $A$ denote any symmetric 3x3 matrix:
+\[
+  \bA =
+  \begin{bmatrix}
+    a & b & c\\
+    b & d & e\\
+    c & e & f
+  \end{bmatrix}
+\]
+And for $\bA - \lambda\bI $:
+\begin{align*}
+  \abs{\bA - \lambda\bI} =
+  \begin{vmatrix}
+   a-\lambda & b & c\\
+    b & d-\lambda & e\\
+    c & e & f-\lambda
+  \end{vmatrix} &= (a-\lambda)[(d-\lambda)(f-\lambda) - e^2] - b[b(f-\lambda)- ce] + c[be - c(d-\lambda)] \\
+             &= -\lambda^3 + (a+d+f)\lambda^2 - (df + ad + af- e^2- b^2-c^2)\lambda \\
+                 &\qquad + adf + 2bce - ae^2 - fb^2 - dc^2
+\end{align*}
+Therefore the equation can be expressed as:
+\[
+  \alpha_3\lambda^3 + \alpha_2\lambda^2 + \alpha_1\lambda + \alpha_0 = 0
+\]
+where
+\begin{align*}
+  \alpha_3 &= {-1} \\
+  \alpha_2 &= a + d + f \\
+  \alpha_1 &= - (df + ad + af - e^2 - b^2 - c^2) \\
+  \alpha_0 &= adf + 2bce - ae^2 - fb^2 -dc^2
+\end{align*}
+
+\subsection*{Exercise 11.2.1}
+\begin{enumerate}[(a)]
+\item $\bM^T\bM =
+  \begin{bmatrix}
+    30 & 100 \\
+    100 & 354 
+  \end{bmatrix}
+$, $\bM\bM^T =
+\begin{bmatrix}
+  2 & 6 & 12 & 20 \\
+  6 & 20 & 42 & 72 \\
+  12 & 42 & 90 & 156 \\
+  20 & 72 & 156 & 272
+\end{bmatrix}
+$
+\item First sovle the equation $\abs{\bM^T\bM - \lambda I} = 0$ for eigenvalues:
+  \[
+    \begin{vmatrix}
+      30 - \lambda & 100 \\
+      100 & 354 - \lambda
+    \end{vmatrix}
+    = (30 -\lambda)(354-\lambda) - 10000 = \lambda^2 - 384\lambda + 620 = 0
+  \]
+  $\lambda_1 \approx 1.6214, \lambda_2 \approx 382.3786$.
+
+  Second find the eigenvectors associated with each eigenvalue:
+  \begin{enumerate}[i.]
+  \item $\lambda_1 = 1.6214$. for the following equation:
+    \[
+      \begin{bmatrix}
+        28.3786 & 100 \\
+        100 &  352.3786
+      \end{bmatrix}
+       \bx = 0
+     \]
+     a normalized solution: $\bx_1 =
+     \begin{bmatrix}
+       0.9620 & 0.2730
+     \end{bmatrix}^T
+$
+\item $\lambda_2 = 382.3786$, eigenvector $\bx_2 =
+  \begin{bmatrix}
+    0.2730 & 0.9620
+  \end{bmatrix}^T
+  $
+  \end{enumerate}
+\item The same eigenvalues as $\bM^T\bM$, $\lambda_1 \approx 1.6214, \lambda_2
+  \approx 382.3786$, and $\lambda_3 = \lambda_4 = 0$
+  
+\item
+  \begin{align*}
+\bx_1 &=
+  \begin{bmatrix}
+    0.5425 & 0.6527 & 0.3364 & {-0.4079}
+  \end{bmatrix}^T \\
+  \bx_2 &=
+  \begin{bmatrix}
+    0.0631 & 0.2247 & 0.4846 & 0.8429
+  \end{bmatrix}^T \\
+  \bx_3 &=
+  \begin{bmatrix}
+    0.6882 & {-0.6882} & 0.2294 & 0
+  \end{bmatrix}^T \\
+  \bx_4 &=
+  \begin{bmatrix}
+    0.7960 & {-0.5970} & 0 & {0.0995}
+  \end{bmatrix}^T
+\end{align*}
+\end{enumerate}
+
+\subsection*{Exercise 11.3.2}
+\[
+  q = [0, 3, 0, 0, 4] \times \bV = [1.74 \quad 2.84]
+\]
+So Leslie is high in romantic interest, and a little bit interested in sci-fi.
+Use $q$ to predict Leslie's rating for other movies.
+\[
+  r = q \bV^T =
+  \begin{bmatrix}
+    1.009 & 1.009 & 1.009 & 2.016 & 2.016
+  \end{bmatrix}
+\]
+So it suggests that Leslie may like romantic movies(Titanic, Casablanca) very
+much, and also have some interests for other sci-fi movies.
+
+\subsection*{Exercise 11.4.2}
+\begin{enumerate}[(a)]
+\item The square of the Frobenius norm of $\bM$ is $f_{\bM} = 4(1 + 9 + 16 + 25)
+  + 3 (16 + 25 + 4) = 243$.
+
+  The columns for \textit{The Matrix} and \textit{Alien} each have a squared
+  Frobenium norm of 51, therefore their probability is $51/243 = 0.210$. The scaler is $\sqrt{2P(j)} = 0.648$.
+  \[
+    \bC =
+    \begin{bmatrix}
+      \dfrac{\bc_{\mathit{matrix}}}{\sqrt{2P(\mathit{matrix})}}
+      & \dfrac{\bc_{\mathit{alien}}}{\sqrt{2P(\mathit{alien})}}
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      1.54 & 4.63 & 6.17 & 7.72 & 0 & 0 & 0 \\
+      1.54 & 4.63 & 6.17 & 7.72 & 0 & 0 & 0
+    \end{bmatrix}^T
+  \]
+
+  The rows for Jim and John each have a squared Frobenium norm of 27, 48,
+  respectively, therefore the probabilities are $27/243 = 0.111, 48/243=0.198$,
+  respectively. The scalers are $\sqrt{2P(Jim)} = 0.471, \sqrt{2P(John)} =
+  0.629$.
+  \[
+    \bR =
+    \begin{bmatrix}
+      \dfrac{\bc_{Jim}}{\sqrt{2P(Jim)}} \\
+      \dfrac{\bc_{John}}{\sqrt{2P(John)}}
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      6.37 & 6.37 & 6.37 & 0 & 0 \\
+      6.36 & 6.36 & 6.36 & 0 & 0 
+    \end{bmatrix}
+  \]
+  $\bW =
+  \begin{bmatrix}
+    3 & 3 \\
+    4 & 4
+  \end{bmatrix}$. Use svd on $\bW$:
+  \begin{align*}
+    \bW = \bX\bZ\bY^T &=
+    \begin{bmatrix}
+      0.6 & {-0.8}\\
+      0.8 & 0.6
+    \end{bmatrix}
+    \cdot
+    \begin{bmatrix}
+      \sqrt{50} & 0 \\
+      0 & 0
+    \end{bmatrix}
+    \cdot
+    \begin{bmatrix}
+      0.707 & 0.707 \\
+      0.707 & {-0.707}
+    \end{bmatrix} \\
+    \bZ^+ &= \begin{bmatrix}
+      \dfrac{1}{\sqrt{50}} & 0 \\
+      0 & 0
+    \end{bmatrix}
+  \end{align*}
+  Then,
+  \[
+    \bU = \bY (\bZ^+)^2\bX^T =
+    \begin{bmatrix}
+      0.0085 & 0.0113 \\
+      0.0085 & 0.0113 
+    \end{bmatrix}
+  \]
+  Therefore, the CUR decomposition of $\bM$ is:
+  \[
+    \bM \approx \bC \cdot \bU \cdot \bR
+    = \begin{bmatrix}
+      1.54 & 4.63 & 6.17 & 7.72 & 0 & 0 & 0 \\
+      1.54 & 4.63 & 6.17 & 7.72 & 0 & 0 & 0
+    \end{bmatrix}^T \cdot
+    \begin{bmatrix}
+      0.0085 & 0.0113 \\
+      0.0085 & 0.0113 
+    \end{bmatrix} \cdot
+    \begin{bmatrix}
+      6.37 & 6.37 & 6.37 & 0 & 0 \\
+      6.36 & 6.36 & 6.36 & 0 & 0 
+    \end{bmatrix}
+    \]
+\end{enumerate}
+\end{document}
