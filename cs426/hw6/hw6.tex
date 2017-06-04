@@ -109,10 +109,10 @@
       \begin{tabular}{|c|c|c|c|c|} \hline
         & \multicolumn{4}{|c|}{Query(atc weight)}\\ \hline
         Term         & tf& idf  & tf-idf & atc weight \\ \hline
-        Car          & 1 & 1.65 & 1.65& 0.599 \\ \hline
-        Auto         & 0 & 2.08 & 0   & 0\\ \hline
-        Insurance    & 1 & 1.62 & 1.62& 0.589\\ \hline
-        Best         & 1 & 1.5  & 1.5 & 0.544\\ \hline
+        Car          & 1 & 1.65 & 1.65& 0.560 \\ \hline
+        Auto         & 0.5 & 2.08 & 1.04& 0.353 \\ \hline
+        Insurance    & 1 & 1.62 & 1.62& 0.550\\ \hline
+        Best         & 1 & 1.5  & 1.5 & 0.509\\ \hline
       \end{tabular}
     \end{table}
   \end{minipage}
@@ -157,11 +157,11 @@
   \end{minipage}
 \end{figure}
 \begin{align*}
-  Sim(Query, Doc 1) &= 23.789 \\
-  Sim(Query, Doc 2) &= 21.833 \\
-  Sim(Query, Doc 3) &= 40.705 \\
+  Sim(Query, Doc 1) &= 23.310 \\
+  Sim(Query, Doc 2) &= 32.037 \\
+  Sim(Query, Doc 3) &= 38.046 \\
 \end{align*}
-Ranking (from high to low): Doc 3, Doc 1, Doc 2
+Ranking (from high to low): Doc 3, Doc 2, Doc 1
 
 \subsection*{ntc.atc}
 \begin{figure}[H]
@@ -171,10 +171,10 @@ Ranking (from high to low): Doc 3, Doc 1, Doc 2
       \begin{tabular}{|c|c|c|c|c|} \hline
         & \multicolumn{4}{|c|}{Query(atc weight)}\\ \hline
         Term         & tf& idf  & tf-idf & atc weight \\ \hline
-        Car          & 1 & 1.65 & 1.65& 0.599 \\ \hline
-        Auto         & 0 & 2.08 & 0   & 0\\ \hline
-        Insurance    & 1 & 1.62 & 1.62& 0.589\\ \hline
-        Best         & 1 & 1.5  & 1.5 & 0.544\\ \hline
+        Car          & 1 & 1.65 & 1.65& 0.560 \\ \hline
+        Auto         & 0.5 & 2.08 & 1.04& 0.353 \\ \hline
+        Insurance    & 1 & 1.62 & 1.62& 0.550\\ \hline
+        Best         & 1 & 1.5  & 1.5 & 0.509\\ \hline
       \end{tabular}
     \end{table}
   \end{minipage}
@@ -219,9 +219,9 @@ Ranking (from high to low): Doc 3, Doc 1, Doc 2
   \end{minipage}
 \end{figure}
 \begin{align*}
-  Sim(Query, Doc 1) &= 0.767 \\
-  Sim(Query, Doc 2) &= 0.407 \\
-  Sim(Query, Doc 3) &= 0.981 \\
+  Sim(Query, Doc 1) &= 0.762 \\
+  Sim(Query, Doc 2) &= 0.657 \\
+  Sim(Query, Doc 3) &= 0.917 \\
 \end{align*}
 Ranking (from high to low): Doc 3, Doc 1, Doc 2
 \end{document}
