@@ -1,0 +1,172 @@
+\documentclass[twoside]{homework}
+
+% for bar over variable
+\newcommand*\conj[1]{\overline{#1}}
+\newcommand*\mean[1]{\overline{#1}}
+
+% for graph
+\usepackage{pgfplots}
+\usepackage{enumerate}
+% for double stroke 1
+\usepackage{bbm}
+
+% for < and >
+\usepackage[T1]{fontenc}
+
+% for equation wrap text
+\usepackage{amsmath}
+\usepackage{bm}
+
+\studname{Kangwei Ling}
+\studmail{kl3076@columbia.edu}
+\coursename{CSOR 4231, Section 3: Analysis of Algorithms I}
+\hwNo{1}
+\begin{document}
+\maketitle
+\subsubsection*{Collaborators}
+Zefeng Liu (zl2715), Kunyan Han (kh2931), Luoyao Hao (lh2913).
+\subsection*{0.1}
+Assume all $\log $ = $\log_2$.
+From slowest growing to fastest growing (same growing speed if in same line):
+	\begin{enumerate}
+		\item $\log 2n, \log 3n, 10\log n, \log (n^2)$
+		\item $(\log n)^3$
+		\item $(\log n)^{10}$
+		\item $n^{0.1}$
+		\item $n^{1/2}, \sqrt{n}, n^{1/2}$
+		\item $n^{2/3}$
+		\item $n/ \log n$
+		\item $n-100, n-200, 100n + \log n, n + (\log n)^2$
+		\item $n\log n, 10n\log 10n$
+		\item $n(\log n)^2, n(\log n)^2$
+		\item $n^{1.01}$
+		\item $n^2 / \log n$
+		\item $5^{\log_2 n}$ \ \ $(5^{\log_2 n} = n^{\log_2 5})$
+		\item $(\log n)^{\log n}, (\log n)^{\log n}$ \ \ ($(\log n)^{\log n} = n^{\log \log n} = 2^{\log n \log \log n}$)
+		\item $2^{(\log_2 n)^2}$
+		\item $2^n, 2^{n+1}, 2^n$
+		\item $n2^n$
+		\item $3^n$
+		\item $n!$
+	\end{enumerate}
+	$\sum_{i=1}^n i^k = \Theta(n^{k+1})$ , since $(n/2)(n/2)^{k} < \sum_{i=1}^n i^k < n^{k+1}$.
+
+
+\subsection*{2.4}
+\begin{description}
+	\item[A] $T(n) = 5T(n/2) + O(n)$, solve this by the master theorem, we have have $T(n) = O(n^{\log_2 5})$
+	\item[B] $T(n) = 2T(n-1) + O(1)$,
+		\begin{align*}
+			T(n) = 2T(n-1) + O(1) &= 4T(n-2) + 2O(1) + O(1) \\
+			&= 2^{n-1}T(1) + \sum_{i=0}^{n-2} 2^iO(1) \\
+			&= \sum_{i=0}^{n-1} 2^iO(1) \quad \text{ (assume $T(1) = O(1)$)} \\
+			&= O(2^n)
+		\end{align*}
+	\item[C] $T(n) = 9T(n/3) + O(n^2)$, solve this by the master theorem, we have $T(n) = O(n^2\log_3 n) = O(n^2\log n)$
+\end{description}
+I would choose between algo A and algo C, since algo B has an exponential complexity. And because $\log n = O(n^{\epsilon}), \epsilon > 0$, algo C is the best choice.
+
+\subsection*{2.5}
+\begin{enumerate}
+	\item [(a)] $a = 2, b = 3, d = 0$, using the master theorem, we have $T(n) = \Theta(n^{\log_3 2})$
+	\item [(b)] $a = 5, b = 4, d = 1$, using the master theorem, we have $T(n) = \Theta(n^{\log_4 5})$
+	\item [(c)] $a = 7, b = 7, d = 1$, using the master theorem, we have $T(n) = \Theta(n\log_7 n)$
+	\item [(d)] $a = 9, b = 3, d = 2$, using the master theorem, we have $T(n) = \Theta(n^2\log_3 n)$
+	\item [(e)] $a = 8, b = 2, d = 3$, using the master theorem, we have $T(n) = \Theta(n^3\log n)$
+	\item [(f)] at level $k$, there are $49^k$ subproblems, each with size $\frac{n}{25^k}$, total work done at level $k$ is,
+		\[ 49^k \times (\frac{n}{25^k})^{3/2}\log (\frac{n}{25^k}) = (\frac{49}{125})^kO(n^{3/2}\log n)\]
+	since $49/125 < 1$ therefore,
+		\begin{align*}
+			T(n) = O(n^{3/2}\log n)
+		\end{align*}
+	also,
+	\[ T(n) = 49T(n/25) + n^{3/2}\log n = \Omega(n^{3/2}\log n)\]
+	thus, $T(n) = \Theta(n^{3/2}\log n)$
+
+	\item [(g)] $T(n) = T(n-1) + 2 = T(n-2) + 2 + 2 = \Theta(n)$
+	\item [(h)] $T(n) = n^c + (n-1)^c + \cdots + 2^c + T(1) = \Theta(n^{c+1})$
+	\ \\
+	(in 0.1, we know $\sum_{i=1}^n i^k = \Theta(n^{k+1})$ )
+	\item [(i)] $T(n) = c^n + c^{n-1} + \cdots + c^2 + T(1) = \Theta(c^n)$
+	\item [(j)] $T(n) = 2T(n-1) + 1 = 4T(n-2) + 2 + 1 = 2^{n-1}T(1) + \sum_{i=0}^{n-2}2^i = \Theta(2^n)$
+	\item [(k)] $T(n) = T(n^{1/2}) + 1 = T(n^{1/4}) + 2 = T(n^{1/2^k}) + k$, let $n = 2^m$ (for simplicity), we have $T(n) = \Theta(T(1) + k)$, where $k = \log m$, thus, $T(n) = \Theta(\log \log n)$
+\end{enumerate}
+
+\subsection*{2.22}
+
+	Let two list be $A = A[0], A[1], ..., A[M-1]$ and $ B = B[0], B[1], ..., B[N-1]$, let $0 < k <= M + N$.
+
+	$findKth(A, B, s_A, s_B, m, n, k)$:
+
+	The input to the algorithm $findKth$ is $A, B$ and the start index ($s_A, s_B$)and size of the current searching region size ($m, n$) of $A $ and $B$ respectively, together with the target $k$.
+
+	In each recursion step, if $m = 0$ or $n = 0$ we return the kth element of the other list respectively. Else if $k = 1$, we return $min(A[s_A], B[s_B])$.
+
+	Otherwise, we calculate $mid_A = (m+1)/2, mid_B = (n+1)/2$.
+
+	\textbf{Case} $mid_A + mid_B > k$:
+
+	If $A[s_A + mid_A -1] >= B[s_B + mid_B -1]$, then we are sure that the $k$ th smallest will not be in $A[s_A + mid_A -1],... A[s_A + m -1]$, therefore we can discard half of current search region of $A$ and recursively call $findKth(A, B, s_A, s_B, mid_A -1, n, k - (m - mid_A + 1))$.
+
+	Similarly, if $A[s_A + mid_A -1] < B[s_B + mid_B -1]$, we can discard half of current search region of $B$ and recursively call $findKth(A, B, s_A, s_B, m, mid_B - 1, k - (n - mid_B + 1))$.
+
+	\textbf{Case} $mid_A + mid_B <= k$:
+
+	If $A[s_A + mid_A -1] <= B[s_B + mid_B -1]$, then we are sure that the $k$ th smallest will not be in $A[s_A], ..., A[s_A + mid_A -1]$, therefore we can discard half of current search region of $A$ and recursively call $findKth(A, B, s_A + mid_A, s_B, m - mid_A, n, k - (m - mid_A))$.
+
+	Similarly, if $A[s_A + mid_A -1] > B[s_B + mid_B -1]$, we can discard half of current search region of $B$ and recursively call $findKth(A, B, s_A, s_B + mid_B, m, n - mid_B, k - (n - mid_B))$.
+
+	This algorithm is $O(\log m + \log n)$ because one of the list $A, B$ 's size is halved.
+
+
+\newcommand{\vecm}{\bm{m}}
+\newcommand{\vecv}{\bm{v}}
+\subsection*{2.33}
+\begin{enumerate}
+	\item [(a)] Suppose $\vecm$ is a nonzero row of $M$. Then $Pr(M\bm{v} = 0) \leq Pr(\sum_{i=0}^n m_iv_i = 0)$. Since $\vecm$ is nonzero, there must exist a $m_k \neq 0$, then we can write $\sum_{i=0}^n m_iv_i = m_kv_k + \sum_{i\neq k} m_iv_i$.
+		\[ \sum_{i=0}^n m_iv_i = 0 \Leftrightarrow v_k = \frac{-\sum_{i\neq k} m_iv_i}{m_k}\]
+	Note that for any randomly chosen $\vecv$, $Pr(v_k = \frac{-\sum_{i\neq k} m_iv_i}{m_k}) \leq 1/2$ because $v_k$ can only be 0 or 1, each with probability $1/2$. Therefore $Pr(M\bm{v} = 0) \leq Pr(\sum_{i=0}^n m_iv_i = 0) \leq 1/2$
+
+
+	\item [(b)] If $AB \neq C$, then $AB-C \neq \bm{0}$, therefore $Pr((AB-C)\vecv = 0) \leq 1/2$, which is exactly $Pr(AB\vecv = C\vecv) \leq 1/2$.
+
+	This statement implies that for a randomly chosen $\vecv$, we calculate $(AB-C)\vecv$, if it does not equal to $\bm{0}$, then we are sure that $AB \neq C$. If it does equal to $\bm{0}$, then there is a probability  $\leq 1/2$ that we are wrong if we draw the conclusion that $AB = C$, we can continue to test to be more confident about this.
+
+	To use this conclusion in testing $AB =C$ in $O(n^2)$:
+
+	The calculation of $AB\vecv$ can be done in $O(n^2)$, since we can calculate $B\vecv$, then $A (B\vecv)$, same for $C\vecv$. Checking $(AB-C)\vecv = \bm{0}$ is $O(n)$. Thus, each single test is $O(n^2)$.
+
+	After $k$ independent test, we can draw the conclusion with the probability to make a mistake less than $1/2^k$, this is very small even with $k = 20$.
+
+	The total actual complexity for testing is $O(kn^2)$, but $k$ can be viewed as a constant because $1/2^k$ decreases really fast.
+
+	Therefore we have an algorithm of $O(n^2)$ to check $AB=C$.
+\end{enumerate}
+
+\subsection*{6}
+\begin{enumerate}
+	\item [a.] When $k=1$, we can only try throwing the mug starting from $1, 2, 3, ..., n-1$, thus we need $n-1$ steps for the worst case. If we can use fewer steps (by skipping some millimeters or some other strategy), at the point of a mug breaks, we cannot get the exact largest number of millimeters that the mug will not break.
+	\item [b.] Suppose we test the first mug at height $h$, if it breaks, we need $h-1$ more tests from 1 to $h-1$ linearly in the worst case using the second mug, this implies that at least $1 + h -1 = h$ steps are required for the worst case. In order to minimize the worst case number of steps, we can make sure that all other cases (described below) does not use more than $h$ steps.
+
+	If the first mug does not break at the first try at $h$, then we can try another height $h'$, $h'$ must be as high as possible because we want to use as fewer steps as possible to reach $n-1$. As a result, $h' = h + h -1$,
+	$h'$ cannot be larger, otherwise we need more than $h$ steps in total if it breaks at $h'$.
+
+	In this reasoning, we must arrange our dropping at $h, h + h - 1, h + h - 1 + h-2, ..., h + h-1 + h-2 + \cdots + 1$. To make sure that we can cover height $n-1$, it must hold that,
+	\[ h + h-1 + h-2 + \cdots + 1 \geq n - 1\]
+
+	Solve this, we have $h_{min} = \lceil\frac{-1 + \sqrt{8n-7}}{2}\rceil $. Thus, we proceed our test at height $h_{min}, h_{min} + h_{min} - 1, ..., h_{min} + h_{min} - 1 + \cdots + 1$, once break at some height, we make linear trials between the previous safe height and the current height.
+
+	By this way, the minimum number of steps in worst case $=O(h_{min}) = O(\sqrt{n})$
+	\item [c.] Let $T(n, k)$ be the minimum steps needed in the worst case for searching height $[0, n]$ and $k$ mugs. Suppose $p$ is the first height we try in the optimized testing procedure.
+	Depending on whether the mug breaks or not, we end up with two branch to recursion. If it breaks, the remaining problem is $T(p-1, k-1)$. If it is still intact, then $T(n-p, k)$.
+
+	Therefore $T(n, k) = 1 + max(T(p-1, k-1), T(n-p, k))$. To make $p$ the optimal height to try, it must hold that
+	\[max(T(p-1, k-1), T(n-p, k)) = \min_{1 \leq i \leq n}\{max(T(i-1, k-1), T(n-i, k))\}\]
+
+	Thus,
+	\[ T(n, k) = 1 + \min_{1 \leq i \leq n}\{max(T(i-1, k-1), T(n-i, k))\}\]
+
+	The base cases are easy: $T(0, k) = 0, T(1, k) = 1, T(n, 1) = n$. When calculating the $T$, we can store a back pointer to find out the exact best way to test the mugs.
+\end{enumerate}
+%\underline{Citation:} Please cite any sources you used for this problem.
+\end{document}
